@@ -245,3 +245,78 @@ doit(N, "init-1-meth-everytime-with-dummy",
      function(i)
         gt[i]:mul(i,i)
      end)
+
+-------------------
+
+Vector7 = {}
+function Vector7.new(x,y)
+   local obj = {x=x,y=y}
+   return setmetatable( obj, {__index = Vector7 } )
+end
+function Vector7.mul(self,v)
+   return self.x*v, self.y*v
+end
+
+Vector7_1 = {}
+setmetatable( Vector7_1, {__index = Vector7})
+function Vector7_1.new(x,y)
+   local obj = Vector7.new(x,y)
+   return setmetatable( obj, {__index = Vector7_1 } )
+end
+Vector7_2 = {}
+setmetatable( Vector7_2, {__index = Vector7_1})
+function Vector7_2.new(x,y)
+   local obj = Vector7_1.new(x,y)
+   return setmetatable( obj, {__index = Vector7_2 } )
+end
+Vector7_3 = {}
+setmetatable( Vector7_3, {__index = Vector7_2})
+function Vector7_3.new(x,y)
+   local obj = Vector7_2.new(x,y)
+   return setmetatable( obj, {__index = Vector7_3 } )
+end
+Vector7_4 = {}
+setmetatable( Vector7_4, {__index = Vector7_3})
+function Vector7_4.new(x,y)
+   local obj = Vector7_3.new(x,y)
+   return setmetatable( obj, {__index = Vector7_4 } )
+end
+
+doit(N, "metatable-1-meth-5subclass",
+     function(i)
+        gt[i] = Vector7_4.new(i,i)
+     end,
+     function(i)
+        gt[i]:mul(i)
+     end)
+
+-------------------
+function newVector8(x,y)
+   local obj = {x=x,y=y}
+   obj.mul = function(self,v) return self.x*v, self.y*v end      
+   return obj
+end
+function newVector8_1(x,y)
+   local obj = newVector8(x,y)
+   return obj
+end
+function newVector8_2(x,y)
+   local obj = newVector8_1(x,y)
+   return obj
+end
+function newVector8_3(x,y)
+   local obj = newVector8_2(x,y)
+   return obj
+end
+function newVector8_4(x,y)
+   local obj = newVector8_3(x,y)
+   return obj
+end
+
+doit(N, "init-1meth-everytime-5subclass",
+     function(i)
+        gt[i] = newVector8_4(i,i)
+     end,
+     function(i)
+        gt[i]:mul(i)
+     end)
