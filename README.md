@@ -95,3 +95,11 @@ could be 10x faster than
 
 
 
+Some ideas and questions
+====
+I found metatable lookup is very costful even on LuaJIT2,
+but if, LuaJIT can cache the result of first meta-table lookup and use on later access,
+it could be super faster. 
+
+I don't know it is possible or not. Anyone?
+
