@@ -22,6 +22,8 @@ Command line:
 Out:
 
 luvit bench.lua
+
+
                                   empty loop creator:0.0007 caller:0.0007 ( 1408.7M create/sec, 1422.7M call/sec)
                   fixed mul func (call only) creator:0.0007 caller:0.0007 ( 1437.8M create/sec, 1460.9M call/sec)
                          simple table lookup creator:0.0021 caller:0.0016 ( 481.5M create/sec, 612.7M call/sec)
@@ -34,9 +36,8 @@ luvit bench.lua
                            metatable-10-meth creator:0.0430 caller:0.0033 ( 2.3M create/sec, 29.9M call/sec)
                            metatable-20-meth creator:0.0463 caller:0.0034 ( 2.2M create/sec, 29.5M call/sec)
                            
-              init-1meth-everytime-5subclass creator:0.0818 caller:0.0045 ( 1.2M create/sec, 22.1M call/sec)                           
+              init-1meth-everytime-5subclass creator:0.0818 caller:0.0045 ( 1.2M create/sec, 22.1M call/sec)                       
                   metatable-1-meth-5subclass creator:0.3676 caller:0.0313 ( 0.3M create/sec, 3.2M call/sec)   
-
 
 
 Compare last 2 lines. You can see it is quite slower when 5-level inheritance is done by metatable.
